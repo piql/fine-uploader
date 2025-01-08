@@ -216,8 +216,8 @@ _build:
 	$(npm-bin)/cleancss --source-map $@/fine-uploader-gallery.css -o $@/fine-uploader-gallery.min.css
 	$(npm-bin)/cleancss --source-map $@/fine-uploader-new.css -o $@/fine-uploader-new.min.css
 
-uglify = $(npm-bin)/uglifyjs -b -e window:global
-uglify-min = $(npm-bin)/uglifyjs -c -m -e window:global
+uglify = $(npm-bin)/uglifyjs -b -e global:window
+uglify-min = $(npm-bin)/uglifyjs -c -m -e global:window
 
 build-dnd-standalone: _build
 	$(uglify) $(dnd-files) -o $(build-out-dir)/dnd.js
@@ -259,31 +259,31 @@ build-ui-s3-jquery: _build
 	$(uglify) $(s3-ui-jquery-files) -o $(build-out-dir)/s3.jquery.fine-uploader.js
 
 build-ui-s3-jquery-min: _build
-	$(uglify-min) $(s3-ui-files) -o $(build-out-dir)/s3.fine-uploader.min.js -e window:global
+	$(uglify-min) $(s3-ui-files) -o $(build-out-dir)/s3.fine-uploader.min.js -e global:window
 
 build-core-azure: _build
 	$(uglify) $(azure-files) -o $(build-out-dir)/azure.fine-uploader.core.js
 
 build-core-azure-min: _build
-	$(uglify-min) $(azure-files) -o $(build-out-dir)/azure.fine-uploader.core.min.js -e window:global
+	$(uglify-min) $(azure-files) -o $(build-out-dir)/azure.fine-uploader.core.min.js -e global:window
 
 build-ui-azure: _build
 	$(uglify) $(azure-ui-files) -o $(build-out-dir)/azure.fine-uploader.js
 
 build-ui-azure-min: _build
-	$(uglify-min) $(azure-ui-files) -o $(build-out-dir)/azure.fine-uploader.min.js -e window:global
+	$(uglify-min) $(azure-ui-files) -o $(build-out-dir)/azure.fine-uploader.min.js -e global:window
 
 build-ui-azure-jquery: _build
 	$(uglify) $(azure-ui-jquery-files) -o $(build-out-dir)/azure.jquery.fine-uploader.js
 
 build-ui-azure-jquery-min: _build
-	$(uglify-min) $(azure-ui-jquery-files) -o $(build-out-dir)/azure.jquery.fine-uploader.min.js -e window:global
+	$(uglify-min) $(azure-ui-jquery-files) -o $(build-out-dir)/azure.jquery.fine-uploader.min.js -e global:window
 
 build-all-core: _build
 	$(uglify) $(all-core-files) -o $(build-out-dir)/all.fine-uploader.core.js
 
 build-all-core-min: _build
-	$(uglify-min) $(all-core-files) -o $(build-out-dir)/all.fine-uploader.core.min.js -e window:global
+	$(uglify-min) $(all-core-files) -o $(build-out-dir)/all.fine-uploader.core.min.js -e global:window
 
 build-all-ui: _build
 	$(uglify) $(all-files) -o $(build-out-dir)/all.fine-uploader.js
