@@ -10,7 +10,7 @@ platform = $(shell uname -s)
 ifeq ($(findstring _NT,$(platform)),_NT)
 	npm-bin = $(shell cygpath -u $(shell npm bin))
 else
-	npm-bin = $(shell npm bin)
+	npm-bin = node_modules/.bin
 endif
 
 build-out-dir = _build
@@ -216,80 +216,80 @@ _build:
 	$(npm-bin)/cleancss --source-map $@/fine-uploader-gallery.css -o $@/fine-uploader-gallery.min.css
 	$(npm-bin)/cleancss --source-map $@/fine-uploader-new.css -o $@/fine-uploader-new.min.css
 
-uglify = $(npm-bin)/uglifyjs -b --preamble $(preamble) -e window:global -p relative --source-map-include-sources
-uglify-min = $(npm-bin)/uglifyjs -c -m --preamble $(preamble) -e window:global -p relative --source-map-include-sources
+uglify = $(npm-bin)/uglifyjs -b -e window:global
+uglify-min = $(npm-bin)/uglifyjs -c -m -e window:global
 
 build-dnd-standalone: _build
-	$(uglify) $(dnd-files) -o $(build-out-dir)/dnd.js --source-map $(build-out-dir)/dnd.js.map
+	$(uglify) $(dnd-files) -o $(build-out-dir)/dnd.js
 
 build-dnd-standalone-min: _build
-	$(uglify-min) $(dnd-files) -o $(build-out-dir)/dnd.min.js --source-map $(build-out-dir)/dnd.min.js.map
+	$(uglify-min) $(dnd-files) -o $(build-out-dir)/dnd.min.js
 
 build-core-traditional: _build
-	$(uglify) $(traditional-files) -o $(build-out-dir)/fine-uploader.core.js --source-map $(build-out-dir)/fine-uploader.core.js.map
+	$(uglify) $(traditional-files) -o $(build-out-dir)/fine-uploader.core.js
 
 build-core-traditional-min: _build
-	$(uglify-min) $(traditional-files) -o $(build-out-dir)/fine-uploader.core.min.js --source-map $(build-out-dir)/fine-uploader.core.min.js.map
+	$(uglify-min) $(traditional-files) -o $(build-out-dir)/fine-uploader.core.min.js
 
 build-ui-traditional: _build
-	$(uglify) $(traditional-ui-files) -o $(build-out-dir)/fine-uploader.js --source-map $(build-out-dir)/fine-uploader.js.map
+	$(uglify) $(traditional-ui-files) -o $(build-out-dir)/fine-uploader.js
 
 build-ui-traditional-min: _build
-	$(uglify-min) $(traditional-ui-files) -o $(build-out-dir)/fine-uploader.min.js --source-map $(build-out-dir)/fine-uploader.min.js.map
+	$(uglify-min) $(traditional-ui-files) -o $(build-out-dir)/fine-uploader.min.js
 
 build-ui-traditional-jquery: _build
-	$(uglify) $(traditional-ui-jquery-files) -o $(build-out-dir)/jquery.fine-uploader.js --source-map $(build-out-dir)/jquery.fine-uploader.js.map
+	$(uglify) $(traditional-ui-jquery-files) -o $(build-out-dir)/jquery.fine-uploader.js
 
 build-ui-traditional-jquery-min: _build
-	$(uglify-min) $(traditional-ui-jquery-files) -o $(build-out-dir)/jquery.fine-uploader.min.js --source-map $(build-out-dir)/jquery.fine-uploader.min.js.map
+	$(uglify-min) $(traditional-ui-jquery-files) -o $(build-out-dir)/jquery.fine-uploader.min.js
 
 build-core-s3: _build
-	$(uglify) $(s3-files) -o $(build-out-dir)/s3.fine-uploader.core.js --source-map $(build-out-dir)/s3.fine-uploader.core.js.map
+	$(uglify) $(s3-files) -o $(build-out-dir)/s3.fine-uploader.core.js
 
 build-core-s3-min: _build
-	$(uglify-min) $(s3-files) -o $(build-out-dir)/s3.fine-uploader.core.min.js --source-map $(build-out-dir)/s3.fine-uploader.core.min.js.map
+	$(uglify-min) $(s3-files) -o $(build-out-dir)/s3.fine-uploader.core.min.js
 
 build-ui-s3: _build
-	$(uglify) $(s3-ui-files) -o $(build-out-dir)/s3.fine-uploader.js --source-map $(build-out-dir)/s3.fine-uploader.js.map
+	$(uglify) $(s3-ui-files) -o $(build-out-dir)/s3.fine-uploader.js
 
 build-ui-s3-min: _build
-	$(uglify-min) $(s3-ui-jquery-files) -o $(build-out-dir)/s3.jquery.fine-uploader.min.js --source-map $(build-out-dir)/s3.jquery.fine-uploader.min.js.map
+	$(uglify-min) $(s3-ui-jquery-files) -o $(build-out-dir)/s3.jquery.fine-uploader.min.js
 
 build-ui-s3-jquery: _build
-	$(uglify) $(s3-ui-jquery-files) -o $(build-out-dir)/s3.jquery.fine-uploader.js --source-map $(build-out-dir)/s3.jquery.fine-uploader.js.map
+	$(uglify) $(s3-ui-jquery-files) -o $(build-out-dir)/s3.jquery.fine-uploader.js
 
 build-ui-s3-jquery-min: _build
-	$(uglify-min) $(s3-ui-files) -o $(build-out-dir)/s3.fine-uploader.min.js -e window:global --source-map $(build-out-dir)/s3.fine-uploader.min.js.map
+	$(uglify-min) $(s3-ui-files) -o $(build-out-dir)/s3.fine-uploader.min.js -e window:global
 
 build-core-azure: _build
-	$(uglify) $(azure-files) -o $(build-out-dir)/azure.fine-uploader.core.js --source-map $(build-out-dir)/azure.fine-uploader.core.js.map 
+	$(uglify) $(azure-files) -o $(build-out-dir)/azure.fine-uploader.core.js
 
 build-core-azure-min: _build
-	$(uglify-min) $(azure-files) -o $(build-out-dir)/azure.fine-uploader.core.min.js -e window:global --source-map $(build-out-dir)/azure.fine-uploader.core.min.js.map
+	$(uglify-min) $(azure-files) -o $(build-out-dir)/azure.fine-uploader.core.min.js -e window:global
 
 build-ui-azure: _build
-	$(uglify) $(azure-ui-files) -o $(build-out-dir)/azure.fine-uploader.js --source-map $(build-out-dir)/azure.fine-uploader.js.map 
+	$(uglify) $(azure-ui-files) -o $(build-out-dir)/azure.fine-uploader.js
 
 build-ui-azure-min: _build
-	$(uglify-min) $(azure-ui-files) -o $(build-out-dir)/azure.fine-uploader.min.js -e window:global --source-map $(build-out-dir)/azure.fine-uploader.min.js.map
+	$(uglify-min) $(azure-ui-files) -o $(build-out-dir)/azure.fine-uploader.min.js -e window:global
 
 build-ui-azure-jquery: _build
-	$(uglify) $(azure-ui-jquery-files) -o $(build-out-dir)/azure.jquery.fine-uploader.js --source-map $(build-out-dir)/azure.jquery.fine-uploader.js.map 
+	$(uglify) $(azure-ui-jquery-files) -o $(build-out-dir)/azure.jquery.fine-uploader.js
 
 build-ui-azure-jquery-min: _build
-	$(uglify-min) $(azure-ui-jquery-files) -o $(build-out-dir)/azure.jquery.fine-uploader.min.js -e window:global --source-map $(build-out-dir)/azure.jquery.fine-uploader.min.js.map
+	$(uglify-min) $(azure-ui-jquery-files) -o $(build-out-dir)/azure.jquery.fine-uploader.min.js -e window:global
 
 build-all-core: _build
-	$(uglify) $(all-core-files) -o $(build-out-dir)/all.fine-uploader.core.js --source-map $(build-out-dir)/all.fine-uploader.core.js.map 
+	$(uglify) $(all-core-files) -o $(build-out-dir)/all.fine-uploader.core.js
 
 build-all-core-min: _build
-	$(uglify-min) $(all-core-files) -o $(build-out-dir)/all.fine-uploader.core.min.js -e window:global --source-map $(build-out-dir)/all.fine-uploader.core.min.js.map
+	$(uglify-min) $(all-core-files) -o $(build-out-dir)/all.fine-uploader.core.min.js -e window:global
 
 build-all-ui: _build
-	$(uglify) $(all-files) -o $(build-out-dir)/all.fine-uploader.js --source-map $(build-out-dir)/all.fine-uploader.js.map 
+	$(uglify) $(all-files) -o $(build-out-dir)/all.fine-uploader.js
 
 build-all-ui-min: _build
-	$(uglify-min) $(all-files) -o $(build-out-dir)/all.fine-uploader.min.js --source-map $(build-out-dir)/all.fine-uploader.min.js.map
+	$(uglify-min) $(all-files) -o $(build-out-dir)/all.fine-uploader.min.js
 
 build: \
 	build-dnd-standalone \
